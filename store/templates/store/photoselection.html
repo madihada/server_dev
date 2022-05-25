@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Madihada</title>
+    <link rel="stylesheet" href="{% static 'css/photoselection.css' %}">  
+    <script defer src="{% static 'js/photoselection.js' %}"></script>
+    <script type="text/javascript">
+      var user = '{{request.user}}'
+      
+      function getToken(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      var csrftoken = getToken('csrftoken')
+      </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bookingInfo">
+        <h1 class="photo hidden"></h1>
+        <h2 class="frame hidden"></h2>
+        <h3 class="bwphoto hidden"></h3>
+        <h4 class="bwframe hidden"></h4>
+        <h5 class="totalprice hidden"></h5>
+      </div>
+      <div class="question">
+        <h1>촬영하실 사진을 선택해주세요 </h1>
+      </div>
+      <div class="selctions">
+        <div class="group">
+          <input type="checkbox" id="family-photo" onclick="selectItem(this.id)" />
+          <label for="family-photo">가족 사진</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" id="50days-photo" onclick="selectItem2(this.id)" />
+            <label for="50days-photo">오십일 사진</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" id="100days-photo" onclick="selectItem3(this.id)" />
+            <label for="100days-photo">백일 사진</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" id="a-year-photo" onclick="selectItem4(this.id)" />
+            <label for="a-year-photo">돌 사진</label>
+        </div>
+        <div class="group">
+          <input type="checkbox" id="a-person-photo" onclick="selectItem5(this.id)" />
+          <label for="a-person-photo">개인 사진(1분 촬영 : 기념일, 프로필 사진 등)</label>
+        </div>
+        <div class="group">
+          <input type="checkbox" id="two-people-photo" onclick="selectItem6(this.id)" />
+          <label for="two-people-photo">커플 사진(2분 촬영 : 커플, 부부, 모자 등)</label>
+        </div>
+        <div class="group">
+          <input type="checkbox" id="people-photo" onclick="selectItem7(this.id)" />
+          <label for="people-photo">우정 사진(3분 이상 촬영)</label>
+        </div>
+        <div class="group">
+          <input type="checkbox" id="color-id-photo" onclick="selectItem8(this.id)" />
+          <label for="color-id-photo">컬러 증명 사진</label>
+        </div>
+      </div>
+      <div class="category-info">
+        <h1 id="h1"></h1>
+        <h2 id="h2"></h2>
+        <h3 id="h3"></h3>
+        <h4 id="h4"></h4>
+        <h5 id="h5"></h5>
+        <h6 id="h6"></h6>
+        <h7 id="h7"></h7>
+        <h8 id="h8"></h8>
+      </div>
+      <div class="next">
+        <a href="{% url 'index' %}booking/">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <div class="final" type="submit" onclick="sendingInfo()">선택 완료</div>
+        </a>
+      </div>  
+    </div>
+  </body>
+</html>

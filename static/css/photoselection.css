@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+h1 {
+  margin: 16px 0;
+  border-left: 5px solid #e74c3c;
+  padding-left: 16px;
+}
+
+.container {
+  padding: 48px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.container .group {
+  padding: 8px 48px;
+  margin: 8px;
+  flex-direction: column;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+label {
+  position: relative;
+}
+
+label::before {
+  content: "";
+  background: url("/images/check-circle.svg");
+  background-position: center;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: -44px;
+  top: -8px;
+
+  transform: scale(0) rotateZ(180deg);
+  transition: all 0.4s cubic-bezier(0.54, 0.01, 0, 1.49);
+}
+
+input[type="checkbox"]:checked + label::before {
+  transform: scale(1) rotateZ(0deg);
+}
+
+label::after {
+  content: "";
+  border: 1px solid #27ae60;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: -42px;
+  top: -6px;
+  border-radius: 50%;
+}
+
+.next {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.next a {
+  font-size: 16px;
+  color: #3d4f61;
+  background: #ecf0f1;
+  padding: 10px 30px;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: 0.5s;
+}
+a:hover {
+  color : #0e582d;
+}
+a span {
+  display: block;
+  position: absolute;
+  background: #27ae60;
+}
+a span:nth-child(1){
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s;
+}
+a:hover span:nth-child(1){
+  transform: scaleY(1);
+  transform-origin: bottom;
+  transition: transform 0.5s;
+}
+a span:nth-child(2){
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s;
+}
+a:hover span:nth-child(2){
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.5s;
+}
+
+a span:nth-child(3){
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s;
+  transition-delay: 0.5s;
+
+}
+a:hover span:nth-child(3){
+  transform: scaleY(1);
+  transform-origin: bottom;
+  transition: transform 0.5s;
+  transition-delay: 0.5s;
+
+}
+a span:nth-child(4){
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s;
+  transition-delay: 0.5s;
+}
+a:hover span:nth-child(4){
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.5s;
+  transition-delay: 0.5s;
+}
+.category-info{
+  display: none;
+}

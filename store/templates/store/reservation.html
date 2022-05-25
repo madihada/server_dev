@@ -1,0 +1,40 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<main class="main-content">
+    <div class="container-fluid">
+        <section class="row align-items-stretch photos" id="section-photos">
+            <div class="col-12" >
+                <div style="text-align: center; font-size: 50px; margin: 10px; margin-top: 40px;">견적내기</div>
+                <div style="text-align: center; color: gray; margin: 2.5px; margin-bottom: 40px;">고객님의 특별한 촬영을 더욱 특별하게</div>
+                <hr>
+                <br>
+                <h6>원하시는 촬영을 선택하세요.</h6>
+                <br>
+            </div>
+            <div class="col-12">
+                <div class="row align-items-stretch">
+                {% for category in categories %}
+                <div class="col-12 col-md-12 col-lg-3"  data-aos="fade-up">
+                    <div class="box-element">
+                        <br>
+                        <h6 style="letter-spacing: 5px; font-size: 20px; color: #b79989"><strong>{{ category.name}}</strong></h6>
+                        <a href="{% url 'index' %}booking/" >
+                        <img src="{{ category.imageURL }}" alt="Image" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </section> <!-- #section-photos -->
+    </div>
+</main>
+{% endblock content %}
+
+<style>
+    *{
+        background-color: gray;
+    }
+</style>

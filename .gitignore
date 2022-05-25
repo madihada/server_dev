@@ -1,0 +1,20 @@
+# : comments
+
+# no .a files
+*.sqlite3
+
+# # but do track lib.a, even though you're ignoring .a files above
+# !lib.a
+
+# # only ignore the TODO file in the current directory, not subdir/TODO
+# /TODO
+venv
+
+# ignore all files in the build/ directory
+venv/
+static/images/
+# # ignore doc/notes.txt, but not doc/server/arch.txt
+# doc/*.txt
+
+# # ignore all .pdf files in the doc/ directory
+# doc/**/*.pdf

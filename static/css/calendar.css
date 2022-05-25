@@ -1,0 +1,256 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+
+}
+html{
+  font-size: 62.5%;
+  background: #121212;
+
+}
+.container{
+  width: 100%;
+  height: 100vh;
+  background: #121212;
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 30rem;
+}
+
+.calendar{
+  width: 45rem;
+  height: 53rem;
+  margin-right: 10px;
+  background: #222227;
+  box-shadow: 0 0.5rem 0.3rem rgba(0,0,0,0.4);
+}
+
+.month{
+  width: 100%;
+  height: 12rem;
+  background: #167e56;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  text-align: center;
+  text-shadow: 0 0.3rem 0.5rem rgba(0,0,0,0.5);
+}
+
+.month i{
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.month h1{
+  font-size: 3rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.month p{
+  font-size: 1.6rem;
+}
+
+
+.weekdays{
+  width: 100%;
+  height: 5rem;
+  padding: 0 0.4rem;
+  display: flex;
+  justify-content: center;
+  /*align-items: center;*/
+}
+
+.weekdays div{
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  width: calc(44.2rem/7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0.3rem 0.5rem rgba(0,0,0,0.5);
+}
+
+.days{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.2rem;
+  /*background: blue;*/
+}
+
+.days div{
+  font-size: 1.4rem;
+  margin: 0.3rem;
+  width: calc(40.2rem/7);
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 0.3rem 0.5rem rgba(0,0,0,0.5);
+  transition: background-color 1s;
+}
+
+/*.days div:hover:not(.today){*/
+.days div:hover{
+
+  background: #167e56;
+  border: 0.2rem solid #777;
+  cursor: pointer;
+}
+
+.prev-date,
+.next-date{
+  opacity: 0.5;
+}
+
+.today{
+  border: 1px solid #167e56;
+}
+
+/**/
+.day{
+
+  width: 45rem;
+  height: 53rem;
+  /*padding: 0 3rem;*/
+  margin-right: 10px;
+  margin-top: 30px;
+  background: #222227;
+  box-shadow: 0 0.5rem 3rem rgba(0,0,0,0.4);
+}
+
+.pday{
+
+  width: 100%;
+  height: 5rem;
+  padding: 0 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #167e56;
+  text-shadow: 0 0.3rem 0.5rem rgba(0,0,0,0.5);
+
+}
+
+.pday div{
+  padding: 0 4.3rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pday .goingBack{
+  color: #167e56;
+  text-shadow: 0 0rem 0rem rgba(0,0,0,0);
+}
+
+.pday .clickReservation{
+  color: white;
+  cursor: pointer;}
+.pday .clickReservation:hover{
+  background: white;
+  color: #167e56;
+  text-shadow: 0 0rem 0rem rgba(0,0,0,0);
+  border: 0.1rem solid #167e56;
+  cursor: pointer;
+  transition: background-color 1s;
+}
+a{
+  text-decoration: none;
+}
+
+
+.time{
+  width: 100%;
+  height: 100vh;
+  padding: 0 0.4rem;
+  display: flex;
+  justify-content: space-between;
+
+}
+.time div{
+  transition: background-color 1s;
+}
+
+.time .morning div{
+  /*background: pink;*/
+  /*color: #000000;*/
+  font-size: 1.4rem;
+  margin: 0.3rem;
+  width: 14rem;
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: bottom;
+  border: 1px solid #333;
+
+}
+.time .afternoon div{
+  /*background: blue;*/
+  /*color: #000000;*/
+  font-size: 1.4rem;
+  margin: 0.3rem;
+  width: 14rem;
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: bottom;
+  border: 1px solid #333;
+}
+
+.time .evening div{
+  /*background: #ffffff;*/
+  /*color: #000000;*/
+
+  font-size: 1.4rem;
+  margin: 0.3rem;
+  width: 14rem;
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: bottom;
+  border: 1px solid #333;
+}
+.time .morning div:hover{
+  background: #167e56;
+  border: 0.2rem solid #777;
+  cursor: pointer;
+}.time .afternoon div:hover{
+  background: #167e56;
+  border: 0.2rem solid #777;
+  cursor: pointer;
+}.time .evening div:hover{
+  background: #167e56;
+  border: 0.2rem solid #777;
+  cursor: pointer;
+}
+
+.hidden{
+display: none!important;
+}
+
+.selectedDay{
+  background: #167e56;
+}
+.selectedTime{
+  background: #167e56;
+}
+.reservedTime{
+  color: darkred;
+  display: none!important;
+}

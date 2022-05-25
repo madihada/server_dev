@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+  
+}
+html{
+font-size: 100%;
+}
+
+.result{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+img{
+    width: 40%;
+    margin: 2rem;
+    margin-top: 0.5rem;
+}
+
+.text{
+    /* font-size: 2rem; */
+    margin: 2rem;
+    margin-bottom: 0rem;
+
+}
+.upload{
+    margin-top: 20px;
+
+}
+.anticipation{
+    margin-top: 20px;
+}
+.hidden{
+    display: none;
+}

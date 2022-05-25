@@ -1,0 +1,87 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<main class="main-content">
+    <div class="container-fluid">
+      <section class="row align-items-stretch photos" id="section-photos">
+        <div class="col-12">
+        <div class="row align-items-stretch">
+
+        {% for product in products %}
+
+        <div class="col-12 col-md-12 col-lg-4"  data-aos="fade-up">
+            <div class="box-element">
+    {#          <a href="{{ product.id }}" class="d-block photo-item" data-fancybox="gallery">#}
+              <a href="{% url 'index' %}detail/{{ product.id }}" >
+
+                <img src="{{ product.imageURL }}" alt="Image" class="img-fluid">
+                <hr>
+                <h6 style=""><strong>{{ product.name}}</strong></h6>
+                <hr>
+                <button data-product="{{product.id}}" data-action="add" style="display: inline-block; float: left;" class="btn btn-outline-secondary add-btn update-cart">사진 예약</button>
+                <a class="btn btn-outline-success" href="{{ product.imageURL }}">구성 보기</a>
+                <h5 style="display: inline-block; float: right"><strong>{{product.price|floatformat:-1}}만원</strong></h5>
+              </a>
+            </div>
+        </div>
+
+        {% endfor %}
+
+        </div>
+        </div>
+      </section> <!-- #section-photos -->
+    </div>
+</main>
+
+{% endblock content %}
+
+{##}
+{#        <div class="col-lg-4">#}
+{#            <img class="thumbnail" src="{{product.imageURL}}">#}
+{#            <div class="box-element product">#}
+{#                <h6><strong>{{ product.name}}</strong></h6>#}
+{#                <hr>#}
+{#                <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>#}
+{#                <a class="btn btn-outline-success" href="#">View</a>#}
+{#                <h5 style="display: inline-block; float: right"><strong>₩{{product.price|floatformat:0}}</strong></h5>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% endfor %}#}
+
+
+
+
+
+
+{#{% extends 'store/main.html' %}#}
+{#{% load static %}#}
+{#{% block content %}#}
+{#<main class="main-content">#}
+{##}
+{#<div class="container-fluid">#}
+{#  <div class="row-fluid">#}
+{#    <div class="span2"></div>#}
+{#    <div class="col-lg-10">#}
+{#        {% for product in products %}#}
+{#        <div class="col-lg-4">#}
+{#            <img class="thumbnail" src="{{product.imageURL}}">#}
+{#            <div class="box-element product">#}
+{#                <h6><strong>{{ product.name}}</strong></h6>#}
+{#                <hr>#}
+{#                <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>#}
+{#                <a class="btn btn-outline-success" href="#">View</a>#}
+{#                <h5 style="display: inline-block; float: right"><strong>₩{{product.price|floatformat:0}}</strong></h5>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+{#</main>#}
+{#{% endblock content %}#}
+{##}
+{##}
+{##}

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Calendar</title>
+<link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+/>
+<link
+href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"
+/>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+
+<script type="text/javascript">
+var user = '{{request.user}}'
+
+function getToken(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getToken('csrftoken')
+</script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="calendar">
+            <div class="month">
+                <i class="fas fa-angle-left prev"></i>
+                <div class="date">
+                    <h1></h1>
+                    <h2 class="hidden"></h2>
+                    <h3 class="hidden"></h3>
+                    <h4 class="hidden"></h4>
+                    <h5 class="hidden"></h5>
+                    <p></p>
+                </div>
+                <i class="fas fa-angle-right next"></i>
+            </div>
+            <div class="weekdays">
+                <div>일</div>
+                <div>월</div>
+                <div>화</div>
+                <div>수</div>
+                <div>목</div>
+                <div>금</div>
+                <div>토</div>
+            </div>
+            <div class="days">
+            </div>
+        </div>
+
+        <div class="day hidden">
+            <div class="pday">
+                <div class="goingBack">뒤로</div>
+                <div>촬영 시간 선택</div>
+                <a href="{% url 'index' %}checkout/">
+                    <div class="clickReservation" type="submit" onclick="getResData()">예약</div>
+                </a>        
+            </div>
+            <div id="timeId" class="time">
+                <div class="morning">
+                    <div id="t1" onclick="changeColor2(this.id)">10:00</div>
+                    <div id="t2" onclick="changeColor2(this.id)">10:30</div>
+                    <div id="t3" onclick="changeColor2(this.id)">11:00</div>
+                    <div id="t4" onclick="changeColor2(this.id)">11:30</div>
+                </div>
+                <div class="afternoon">
+                    <div id="t5" onclick="changeColor2(this.id)">12:00</div>
+                    <div id="t6" onclick="changeColor2(this.id)">12:30</div>
+                    <div id="t7" onclick="changeColor2(this.id)">1:00</div>
+                    <div id="t8" onclick="changeColor2(this.id)">1:30</div>
+                    <div id="t9" onclick="changeColor2(this.id)">2:00</div>
+                    <div id="t10" onclick="changeColor2(this.id)">2:30</div>
+                    <div id="t11" onclick="changeColor2(this.id)">3:00</div>
+                    <div id="t12" onclick="changeColor2(this.id)">3:30</div>
+                    <div id="t13" onclick="changeColor2(this.id)">4:00</div>
+                    <div id="t14" onclick="changeColor2(this.id)">4:30</div>
+                </div>
+                <div class="evening">
+                    <div id="t15" onclick="changeColor2(this.id)">5:00</div>
+                    <div id="t16" onclick="changeColor2(this.id)">5:30</div>
+                    <div id="t17" onclick="changeColor2(this.id)">6:00</div>
+                    <div id="t18" onclick="changeColor2(this.id)">6:30</div>
+                </div>
+            </div>
+        </div>
+    </div><!--/container-->
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+const date = new Date();
+
+// 기본 claendar html
+const renderCalendar = () => {
+    const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+    const fullWeekdays = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"];
+    const monthDays = document.querySelector(".days");
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+    const firstDayIndex = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
+    const nextDays = 7 - lastDayIndex - 1;
+
+    document.querySelector('.date h1').textContent
+    = months[date.getMonth()];
+    document.querySelector('.date p').textContent
+    = date.getFullYear()+"년 "+ months[date.getMonth()] + " "+ date.getDate()+"일 " + fullWeekdays[date.getDay()];
+
+    let days = "";
+    for (let x = firstDayIndex; x > 0; x--) {
+        days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
+    }
+    for(let i = 1; i<=lastDay; i++){
+        if(i === new Date().getDate() && date.getMonth() === new Date().getMonth()){
+            days += `<div id="${i}" class="today" onclick="changeColor(this.id)">${i}</div>`
+        }
+        else{
+            days += `<div id="${i}" onclick="changeColor(this.id)">${i}</div>`+ ``
+        }
+    }
+    for (let j = 1; j <= nextDays; j++) {
+        days += `<div class="next-date">${j}</div>`;
+        monthDays.innerHTML = days;
+    }
+};
+
+
+// 기본 day HTML
+const renderDay = () => {
+    let times = `<div class="morning">
+        <div id="t1" onclick="changeColor2(this.id)">10:00</div>
+        <div id="t2" onclick="changeColor2(this.id)">10:30</div>
+        <div id="t3" onclick="changeColor2(this.id)">11:00</div>
+        <div id="t4" onclick="changeColor2(this.id)">11:30</div>
+    </div>
+
+    <div class="afternoon">
+        <div id="t5" onclick="changeColor2(this.id)">12:00</div>
+        <div id="t6" onclick="changeColor2(this.id)">12:30</div>
+        <div id="t7" onclick="changeColor2(this.id)">1:00</div>
+        <div id="t8" onclick="changeColor2(this.id)">1:30</div>
+        <div id="t9" onclick="changeColor2(this.id)">2:00</div>
+        <div id="t10" onclick="changeColor2(this.id)">2:30</div>
+        <div id="t11" onclick="changeColor2(this.id)">3:00</div>
+        <div id="t12" onclick="changeColor2(this.id)">3:30</div>
+        <div id="t13" onclick="changeColor2(this.id)">4:00</div>
+        <div id="t14" onclick="changeColor2(this.id)">4:30</div>
+    </div>
+    <div class="evening">
+        <div id="t15" onclick="changeColor2(this.id)">5:00</div>
+        <div id="t16" onclick="changeColor2(this.id)">5:30</div>
+        <div id="t17" onclick="changeColor2(this.id)">6:00</div>
+        <div id="t18" onclick="changeColor2(this.id)">6:30</div>
+    </div>`
+
+    let time = document.getElementById('timeId')
+    time.innerHTML = times;
+};
+
+
+
+// 날짜 클릭 시 작동되는 함수
+function changeColor(clickedId){
+    renderCalendar()
+
+    /// 날짜 클릭 시, 정보(년,월,일,요일) 보여주기
+    const months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+    const fullWeekdays = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일","월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일","월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일","월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일","월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"];
+    const firstDayIndex = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    const dayIndex = firstDayIndex + parseInt(clickedId) - 2;
+    document.querySelector('.date p').innerHTML
+    = date.getFullYear()+"년 "+ months[date.getMonth()] + "월 "+ clickedId + "일 " + fullWeekdays[dayIndex];
+    renderDay();
+    document.querySelector('.day').classList.remove("hidden");
+    let click = document.getElementById(clickedId);
+    click.classList.add('selectedDay');
+
+    /// 날짜 클릭 > 예약 테스트(2020.7.20:1시 1시간30분, 2020.8.25:5시 1시간)
+    // let resInfo = [{'year':2020, 'month':7, 'day':20, 'time':7, 'duration':1}, {'year':2020, 'month':8, 'day':25, 'time':15, 'duration':1}, {'year':2020, 'month':8, 'day':1, 'time':10, 'duration':1}]
+    // console.log(resInfomations[0])
+
+    console.log('resInfomations[0].year is :', resInfomations[0].year)
+    console.log('resInfomations[0].month is :', resInfomations[0].month)
+    console.log('resInfomations[0].date is :', resInfomations[0].date)
+    console.log('resInfomations[0].index is :', resInfomations[0].index)
+    console.log('resInfomations[0].duration is :', resInfomations[0].duration)
+    console.log('resInfomations[1].year is :', resInfomations[1].year)
+    console.log('resInfomations[1].month is :', resInfomations[1].month)
+    console.log('resInfomations[1].date is :', resInfomations[1].date)
+    console.log('resInfomations[1].index is :', resInfomations[1].index)
+    console.log('resInfomations[1].duration is :', resInfomations[1].duration+2)
+
+    for (j=0; j<resInfomations.length; j++){
+        if (date.getFullYear() == resInfomations[j].year && months[date.getMonth()] == resInfomations[j].month && clickedId == resInfomations[j].date) {
+            for (let i=-resInfomations[j].duration-1; i<resInfomations[j].duration+2; i++) {
+                let resTime = document.getElementById(`t${Number(resInfomations[j].index) + i}`);
+                resTime.classList.add('reservedTime');
+                console.log('resTime is : ',resTime)
+            }        
+        }
+    }
+
+    /// 클릭한 년,월,일 html에 전송
+    document.querySelector('.month .date h2').textContent
+    = clickedId;
+    document.querySelector('.month .date h3').textContent
+    = months[date.getMonth()];    
+    document.querySelector('.month .date h4').textContent
+    = date.getFullYear();
+}
+
+
+
+// 시간 클릭 시 작동되는 함수
+function changeColor2(clickedTime){
+    /// 다른 시간 선택 시 초기화 역할
+    renderDay()
+
+    /// 시간 클릭 > 예약 테스트(2020.7.20:1시 1시간30분, 2020.8.25:5시 1시간)
+    // let resInfo = [{'year':2020, 'month':7, 'day':20, 'time':7, 'duration':1}, {'year':2020, 'month':8, 'day':25, 'time':15, 'duration':1}, {'year':2020, 'month':8, 'day':1, 'time':10, 'duration':1}]
+    let selectedDate = document.querySelector('.date h2').innerHTML;
+    let selectedMonth = document.querySelector('.date h3').innerHTML;
+    let selectedYear = document.querySelector('.date h4').innerHTML;
+
+    for (j=0; j<resInfomations.length; j++){
+        if (selectedYear == resInfomations[j].year && selectedMonth == resInfomations[j].month && selectedDate == resInfomations[j].date){
+            for (let i=-resInfomations[j].duration-1; i<resInfomations[j].duration+2; i++) {
+                let resTime = document.getElementById(`t${Number(resInfomations[j].index) + i}`);
+                resTime.classList.add('reservedTime');
+            };
+        };
+    }
+
+    // 시간 선택
+    let click = document.getElementById(clickedTime);
+    click.classList.add('selectedTime');
+
+    // 선택 시간 전송
+    document.querySelector('.date h5').innerHTML
+    = clickedTime;
+};
+// 최종 예약 정보(년,월,일,시간)
+function getResData(){
+    let time = document.querySelector('.date h5').innerHTML
+    let year = document.querySelector('.date h4').innerHTML
+    let month = document.querySelector('.date h3').innerHTML
+    let date = document.querySelector('.date h2').innerHTML
+    let schedule = ['10:00','10:30','11:00','11:30','12:00','12:30','1:00','1:30','2:00','2:30','3:00','3:30','4:00','4:30','5:00','5:30','6:00','6:30']
+    let index = time.slice(1,3)
+    let min = schedule[index-1]
+    let duration = 1
+alert(`${year} ${month} ${date} ${min}`)
+updateResData(year, month, date, time, index, min, duration)
+}
+
+
+
+// 월 변경 시 실행되는 함수
+renderCalendar();
+document.querySelector('.prev').addEventListener('click',() => {
+    date.setMonth(date.getMonth()-1);
+    renderCalendar();
+
+});
+document.querySelector('.next').addEventListener('click',() => {
+    date.setMonth(date.getMonth()+1);
+    renderCalendar();
+});
+
+
+
+// Post Data
+let rtime = document.querySelector('.date h5').innerHTML
+let ryear = document.querySelector('.date h4').innerHTML
+let rmonth = document.querySelector('.date h3').innerHTML
+let rdate = document.querySelector('.date h2').innerHTML
+let rschedule = [1000,1030,1100,1130,1200,1230,100,130,200,230,300,330,400,430,500,530,600,630]
+let rindex = rtime.slice(1,3)
+let rmin = rschedule[rindex-1]
+let rduration = 1
+function updateResData(ryear, rmonth, rdate, rtime, rindex, rmin, rduration){
+    console.log('posting data..')
+
+    let url = '/process_resdata/'
+    fetch(url, {
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body:JSON.stringify({'ryear':ryear, 'rmonth':rmonth, 'rdate':rdate, 'rtime':rtime, 'rindex':rindex, 'rmin':rmin, 'rduration':rduration})
+    })
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        // location.reload();
+    })
+}
+
+let obj = '{{resInfomations}}'
+let obj2 = JSON.parse(obj.replace(/&quot;/g,'"'));
+let resInfomations = [];
+for (let i=0; i<obj2.length; i++){
+    let obj3 = JSON.parse(obj2[i].replace(/&#39;/g,'"'));
+    resInfomations.push(obj3)
+}
+</script>

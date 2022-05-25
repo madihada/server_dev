@@ -1,0 +1,81 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<main class="main-content">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="box-element" id="form-wrapper">
+                <form id="form">
+                    <div id="user-info">
+                    </div>
+                    <div id="shipping-info">
+                        <div class="box-element">
+                            <img src="{{ object.imageURL }}" alt="Image" class="img-fluid">
+                            <hr>
+                            <h6 style=""><strong>{{ object.name}}</strong></h6>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="box-element hidden" id="payment-info">
+                        <button data-product="{{object.id}}" data-action="add" style="display: inline-block; float: left;" class="btn btn-outline-secondary add-btn update-cart">{{ object.name }} 추가</button>
+                        <a class="btn btn-outline-success" href="{% url 'store' %}">돌아가기</a>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="box-element hidden" id="payment-info">
+                <small>Paypal Options</small>
+                <button id="make-payment">Make payment</button>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="row">
+                <div class="box-element2">
+                    <button data-product="{{object.id}}" data-action="add" style="display: inline-block; float: left;" class="btn btn-outline-secondary add-btn update-cart" id="addition">
+                        <h6>{{ object.name }} 촬영</h6>
+                    </button>
+                </div>
+                <div class="box-element2">
+                    <button data-product="11" data-action="add" style="display: inline-block; float: left;" class="btn btn-outline-secondary add-btn update-cart" id="addition"><h6>흑백 사진 추가</h6></button>
+                </div>
+                <div class="box-element2">
+                    <button data-product="13" data-action="add" style="display: inline-block; float: left;" class="btn btn-outline-secondary add-btn update-cart" id="addition"><h6>a4 액자 추가</h6></button>
+                </div>
+                <div class="box-element2">
+                    <button data-product="12" data-action="add" style="display: inline-block; float: left;" class="btn btn-outline-secondary add-btn update-cart" id="addition"><h6>a3 액자 추가</h6></button>
+                </div>
+                <div class="box-element2">
+                    <button data-product="14" data-action="add" style="display: inline-block; float: left;" class="btn btn-outline-secondary add-btn update-cart" id="addition"><h6>a2 액자 추가</h6></button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-4">
+            <div class="box-element receip">
+                <a  class="btn btn-outline-dark payment" href="{% url 'cart' %}">결제하기&#8594;</a>
+            <br /><br />
+                <hr>
+                <h3>주문내역</h3>
+                <hr>
+                {% for item in items %}
+                <div class="cart-row">
+                    <div style="flex:2"><p>{{item.product.name}}</p></div>
+                    <div style="flex:1"><p>{{item.product.price|floatformat:-1}}만원</p></div>
+                    <div style="flex:1"><p>x{{item.quantity}}</p>
+                        <div class="quantity">
+							<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+							<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+						</div>
+                    </div>
+                </div>
+                {% endfor %}
+                <h5>결제금:   {{order.get_cart_total|floatformat:-1}}만원</h5>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+
+

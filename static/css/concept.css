@@ -1,0 +1,360 @@
+:root {
+    /* Color */
+    --white-color:#ffffff;
+    --gray-white-color:#cccccc;
+    --black-color:#111111;
+    --orange-color:#c4967e;
+    --dark-orange-color:#604739;
+    --dark-gray-color:#808080;
+
+    /* Size */
+    --padding: 12px;
+    --padding-micro: 4px;
+
+    --margin: 6px;
+    --border-size: 2px;
+
+    /* Font Size */
+    --font-extra-large: 22px;
+    --font-large: 18px;
+    --font-medium: 14px;
+    --font-small: 12px;
+    --font-micro: 10px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    background-color: var(--black-color);
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: var(--padding);
+    padding-top: 0;
+}
+a { 
+    text-decoration: none;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Header */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    padding: var(--padding);
+    background-color: var(--black-color);
+    color: var(--white-color);
+}
+
+header .logo {
+    font-size: var(--font-large);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+header .logo .company{
+    font-size: var(--font-micro);
+    display: flex;
+    justify-content: center;
+}
+header .icon {
+    padding: var(--padding);
+}
+header .icon button{
+    border: none;
+    background: none;
+}
+header .icon button i{
+    color: var(--white-color);
+}
+.headerLine{
+    border: none;
+    height: 1px;
+    background-color: #5f5f5f;
+    opacity: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Photo */
+.photo {
+    position: sticky;
+    top: 0;
+    display: block;
+    background-color: var(--black-color);
+    z-index: 2;
+}
+.photo .photos {
+    text-align: left;
+    background-color: var(--black-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--padding);
+}
+.photo .before {
+    width: 13px;
+}
+.photo .next {
+    width: 13px;
+}
+.photo .main {
+    width: 60%;
+    height: 100%;
+    max-width: 750px;
+}
+.photo button{
+    border: none;
+    background: var(--black-color);
+}
+.photo .type{
+    padding: var(--padding);
+    color: var(--gray-white-color-color);
+    background-color: var(--black-color);
+}
+.photo .type span{
+    color: var(--white-color);
+    font-size: var(--font-medium);
+}
+.photo .vertical-line{
+    width: 100%;
+    height: 1px;
+    background-color: var(--dark-gray-color);
+    margin-bottom: cal(var(--padding)/2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Selection */
+.selection {
+    background: var(--black-color);
+    color: var(--dark-gray-color);
+    font-size: var(--font-small);
+}
+.selection .answer {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: var(--padding);
+}
+.btn {
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--dark-gray-color);
+    font-size: var(--font-medium);
+    cursor: pointer;
+}
+.btn::after{
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0.5px;
+    background-color: var(--dark-gray-color);
+    margin-right: var(--padding);
+    margin-top: 5px;
+    opacity: 0.2;
+}
+.btn.btn-slide::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--dark-orange-color);
+    margin-right: var(--padding);
+    margin-top: 22px;
+    z-index: 1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms ease-out;
+}
+
+.btn.btn-slide:hover::before,
+.btn.btn-slide:focus::before{
+    transform: scaleX(1);
+    color: white;
+}
+.btn.btn-slide:hover,
+.btn.btn-slide:focus{
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Details */
+.details {
+    position: sticky;
+    bottom: 0;
+}
+
+
+/* Info */
+.details .info {
+    background-color: var(--black-color);
+    color: var(--white-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--padding);
+}
+.details .info .totalPrice .price {
+    font-size: var(--font-extra-large);
+    padding: var(--padding);
+    padding-right: 5px;
+
+}
+.details .info .totalPrice .prediction {
+    color: var(--dark-gray-color);
+    font-size: var(--font-medium);
+    padding: var(--padding);
+    padding-left: 0px;
+}
+
+.details .info .selectedItems button {
+    border: none;
+    background: none;
+    color: var(--white-color);
+    font-size: var(--font-large);
+}
+
+.details .button {
+    background-color: var(--black-color);
+    color: var(--white-color);
+    display: flex;
+    justify-content: space-between;
+    align-self: bottom;
+    padding: var(--padding);
+}
+.details .button button {
+    width: 48%;
+    height: 45px;
+    background-color: var(--black-color);
+    color: var(--white-color);
+    border: solid 1px;
+
+}
+.details .button button a{
+    font-size: var(--font-large);
+    display: block;
+    padding: 10px;
+}
+
+/* Exit Button */
+.exitButton {
+    position: absolute;
+    padding: var(--padding);
+    padding-top: 0;
+    right:0px;
+    font-size: 24px;
+    color: var(--gray-white-color);
+}
+.exitButton img {
+    width: 17px;
+    color: aliceblue;
+}
+
+
+/* Background Slide */
+.btn-background-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--orange-color);
+    z-index: -1;
+
+    transition: transform 300ms ease-in-out;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+.btn-background-slide:hover::before,
+.btn-background-slide:focus::before {
+    transform: scale(1);
+}
+.btn-background-slide {
+    z-index: 1;
+}
+.btn-background-slide:hover,
+.btn-background-slide:focus {
+    color: var(--orange-color);
+}
+
+.transition-fade{
+    opacity: 1;
+    transition: 500ms;
+}
+html.is-animating .transition-fade{
+    opacity: 0;
+}
+
+.hidden {
+    display: none;
+}

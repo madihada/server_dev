@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/booking.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <title>Booking</title>
+    <script defer src="{% static 'js/booking.js' %}"></script>
+    <script defer src="{% static 'node_modules/swup/dist/swup.min.js' %}"></script>
+    <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>  
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+        
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+        </script>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div id="swup" class="logo transition-fade">
+            <a href="/booking" style="color: white; text-decoration : none;"><span class="company">맞이하다</span></a>
+            <span class="title">가족사진</span>
+        </div>
+        <div class="icon">
+            <button><i class="fas fa-chevron-down"></i></button>
+        </div>
+        <a href="{% url 'index' %}" class="exitButton">    
+            <img src="{% static 'images/exit-white.png' %}" alt="" class="main">
+        </a>
+    </header>
+
+    <div id="swup" class="firstContent transition-fade">
+        <!-- Photo Section -->
+        <section class="photo">
+            <div class="photos">
+                <button><img src="{% static 'images/arrow-before.png' %}" alt="" class="before"></button>
+                <button><img src="{% static 'images/img_2_v1.jpg' %}" alt="" class="main"></button>
+                <button><img src="{% static 'images/arrow-next.png' %}" alt="" class="next"></button>
+            </div>
+            <div class="photoInfo">
+                <div class="type">
+                    <span>1.촬영 인원</span>
+                </div>
+                <div class="vertical-line"></div>
+            </div>
+        </section>
+
+        <div class="bookingInfo">
+            <h1 class="photo hidden"></h1>
+            <h2 class="frame hidden"></h2>
+            <h3 class="bwphoto hidden"></h3>
+            <h4 class="bwframe hidden"></h4>
+            <h5 class="totalprice hidden"></h5>
+        </div>
+
+        <!-- Select Selection -->
+        <section class="selection">
+            <div class="first"> 
+                {% for familyphoto in familyphotos %}
+                <div class="answer">
+                    <button id="{{familyphoto.name}},{{familyphoto.price|floatformat:0}}" class="btn btn-slide" onclick="familyMain(this.id)">{{familyphoto.name}}</button>
+                    <span id={{familyphoto.price}}>+{{familyphoto.price|floatformat:0}} 원</span>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <div id="swup" class="secondContent transition-fade hidden">
+        <!-- Photo Section -->
+        <section class="photo">
+            <div class="photos">
+                <button><img src="{% static 'images/arrow-before.png' %}" alt="" class="before"></button>
+                <button><img src="{% static 'images/a4.png' %}" alt="" class="main"></button>
+                <button><img src="{% static 'images/arrow-next.png' %}" alt="" class="next"></button>
+            </div>
+            <div class="photoInfo">
+                <div class="type">
+                    <span>2.액자 선택</span>
+                </div>
+                <div class="vertical-line"></div>
+            </div>
+        </section>
+
+
+        <!-- Select Selection -->
+        <section class="selection">
+            <div class="first"> 
+                {% for familyframe in familyframes %}
+                <div class="answer">
+                    <button id="{{familyframe.name}},{{familyframe.price|floatformat:0}}" class="btn btn-slide" onclick="familyFrame(this.id)">{{familyframe.name}}</button>
+                    <span>+{{familyframe.price|floatformat:0}}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <div id="swup" class="thirdContent transition-fade hidden">
+        <!-- Photo Section -->
+        <section class="photo">
+            <div class="photos">
+                <button><img src="{% static 'images/arrow-before.png' %}" alt="" class="before"></button>
+                <button><img src="{% static 'images/img_3.jpg' %}" alt="" class="main"></button>
+                <button><img src="{% static 'images/arrow-next.png' %}" alt="" class="next"></button>
+            </div>
+            <div class="photoInfo">
+                <div class="type">
+                    <span>3. 추가 컬러 & 흑백 사진</span>
+                </div>
+                <div class="vertical-line"></div>
+            </div>
+        </section>
+
+
+        <!-- Select Selection -->
+        <section class="selection">
+            <div class="first"> 
+                {% for familybwphoto in familybwphotos %}
+                <div class="answer">
+                    <button id="{{familybwphoto.name}},{{familybwphoto.price|floatformat:0}}" class="btn btn-slide" onclick="familyBW(this.id)">{{familybwphoto.name}}</button>
+                    <span>+{{familybwphoto.price|floatformat:0}}</span>
+                </div>
+                {% endfor %}
+
+            </div>
+        </section>
+    </div>
+
+    <div id="swup" class="fourthContent transition-fade hidden">
+        <!-- Photo Section -->
+        <section class="photo">
+            <div class="photos">
+                <button><img src="{% static 'images/arrow-before.png' %}" alt="" class="before"></button>
+                <button><img src="{% static 'images/a4.png' %}" alt="" class="main"></button>
+                <button><img src="{% static 'images/arrow-next.png' %}" alt="" class="next"></button>
+            </div>
+            <div class="photoInfo">
+                <div class="type">
+                    <span>4.추가 액자 선택</span>
+                </div>
+                <div class="vertical-line"></div>
+            </div>
+        </section>
+
+
+        <!-- Select Selection -->
+        <section class="selection">
+            <div class="first"> 
+                {% for familybwframe in familybwframes %}
+                <div class="answer">
+                    <button id="{{familybwframe.name}},{{familybwframe.price|floatformat:0}}" class="btn btn-slide" onclick="familyBWFrame(this.id)">{{familybwframe.name}}</button>
+                    <span>+{{familybwframe.price|floatformat:0}}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+    <!-- Showing Details -->
+    <section class="details">
+        <div class="info">
+            <div class="totalPrice">
+                <span id="photoPrice" class="photoPrice hidden"></span>
+                <span id="framePrice" class="framePrice hidden"></span>
+                <span id="BWPrice" class="BWPrice hidden"></span>
+                <span id="BWFramePrice" class="BWFramePrice hidden"></span>
+
+                <span id="finalPrice" class="price fprice">0</span>
+                <span>원</span>
+                <span class="prediction">(예상가격)</span>
+            </div>
+            <div class="selectedItems">
+                <button><i class="fas fa-grip-lines"></i></button>
+            </div>
+        </div>
+
+        <div id="swup" class="button">
+            <button class="beforeButton"><a href="{% url 'index' %}photoselection/">이전</a></button>
+            <button class="beforeButton2 hidden">이전</button>
+            <button class="beforeButton3 hidden">이전</button>
+            <button class="beforeButton4 hidden">이전</button>
+            <button class="nextButton">다음</button>
+            <button class="nextButton2 hidden">다음</button>
+            <button class="nextButton3 hidden">다음</button>
+            <button class="nextButton4 hidden" type="submit" onclick="getResData()"><a href="{% url 'index' %}calendar/">선택완료</a></button>
+
+        </div>
+
+
+        <!-- Genesis javascript part -->
+        <!-- <script type="text/javascript">
+        document.querySelector('.nextButton').addEventListener('click',() => {
+            document.querySelector('.firstContent').classList.add("hidden")
+            document.querySelector('.secondContent').classList.remove("hidden")
+        });
+        document.getElementById('select')
+        document.querySelector('.date h1').innerHTML
+        = months[date.getMonth()];
+        console.log('hi bro')
+        </script> -->
+        <!-- End -->
+
+    </section>
+</body>
+</html>
